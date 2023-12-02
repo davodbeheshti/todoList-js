@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body dir="rtl">
+
+    <div class="mx-5 my-3 d-flex flex-column">
+
+        <div class="input-title w-100 mb-4 d-flex align-items-end">
+            <div class="w-50">
+                <label class="mb-2" for="title">عنوان</label>
+                <input type="text" id="title" class="form-control">
+            </div>
+            <div class="input-dropdown w-50 pe-5">
+                <button class="btn btn-secondary dropdown-toggle" id="dropdown-btn" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    وضعیت
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#done">انجام شده</a></li>
+                    <li><a class="dropdown-item" href="#inProgress">در حال انجام</a></li>
+                    <li><a class="dropdown-item" href="#todo">انجام نشده</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="input-title d-flex align-items-end w-100 mt-3">
+            <div class="w-50">
+                <label class="mb-2" for="description">توضیحات</label>
+                <textarea name="" id="description" class="form-control" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div class="w-50 d-flex justify-content-end">
+                <button class="btn btn-primary btn-md" id="btn-submit">ثبت</button>
+            </div>
+        </div>
+
+        <table class="table mt-5" id="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">عنوان</th>
+                    <th scope="col">توضیحات</th>
+                    <th scope="col">وضعیت</th>
+                    <th scope="col">عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>
+                            <i id="iconPencil" class="fa fa-trash text-danger ms-3"></i>
+                            <i id="iconTrash" class="fa fa-pencil text-warning"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
