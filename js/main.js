@@ -7,8 +7,9 @@ let taskList = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     taskList = JSON.parse(localStorage.getItem('taskList')) || [];
-    taskList.map(x => {
-        table(x);
+    taskList.map((item , index) => {
+        item.row = index + 1;
+        table(item);
     })
 })
 
