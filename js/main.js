@@ -59,6 +59,7 @@ function table(objModel) {
     tr.appendChild(tdDescription);
     tr.appendChild(tdStatus);
     tr.appendChild(tdOperation);
+    tr.setAttribute('id', objModel.id);
     tableTag.append(tr);
 }
 
@@ -75,8 +76,6 @@ const eventRemoveRow = (e) => {
 }
 
 const editRow = (e) => {
-    // btnSubmit
-    console.log(e.target.id);
     const row = taskList.find(f => f.id === +e.target.id);
     title.value = row.title;
     description.value = row.description;
@@ -89,10 +88,17 @@ const submitEventEditRow = (e) => {
     row.title = title.value;
     row.description = description.value;
     btnSubmit.innerText = "Add"
-    btnSubmit.setAttribute('id', null);
     title.value = '';
     description.value = '';
-    localStorage.setItem('taskList', JSON.stringify(taskList));
+    localStorage.setItem('taskList', JSON.stringify(taskList)); // localStorage update
+    console.log(tableTag.children);
+    for (let item of tableTag.children) {
+        if(item.id === e.target.id) {
+            item.children[1].innerText = row.title;
+            item.children[2].innerText = row.description;
+        }
+    }
+    btnSubmit.setAttribute('id', null);
 }
 
 const submitEventAddRow = () => {
