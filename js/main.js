@@ -12,11 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-
 tableTag.addEventListener('click', (e) => {
     e.preventDefault();
     if (e.target.classList.contains('fa-trash')) {
-        removeRow(e)
+        eventRemoveRow(e)
     } else if (e.target.classList.contains('fa-pencil')) {
         editRow(e)
     }
@@ -27,22 +26,9 @@ btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
 
     if (e.target.id) {
-
+        submitEventEditRow(e);
     } else {
-        const objModel = {};
-        if (title.value) {
-            objModel.title = title.value;
-            objModel.description = description.value;
-            objModel.id = Math.round(Math.random() * 10000);
-            taskList.push(objModel);
-            title.value = ''
-            description.value = ''
-            ///////////////////////////
-            table(objModel);
-            localStorage.setItem('taskList' , JSON.stringify(taskList));
-        } else {
-            alert('please enter title');
-        }
+        submitEventAddRow();
     }
 
 })
@@ -81,7 +67,7 @@ function createTag(nameTag, value) {
     return tag;
 }
 
-const removeRow = (e) => {
+const eventRemoveRow = (e) => {
     e.target.parentElement.parentElement.remove();
     taskList = taskList.filter(f => f.id !== +e.target.id)
     localStorage.setItem('taskList', JSON.stringify(taskList))
@@ -95,4 +81,32 @@ const editRow = (e) => {
     description.value = row.description;
     btnSubmit.innerText = "Edit"
     btnSubmit.setAttribute('id', row.id);
+}
+
+const submitEventEditRow = (e) => {
+    const row = taskList.find(x => x.id === +e.target.id);
+    row.title = title.value;
+    row.description = description.value;
+    btnSubmit.innerText = "Add"
+    btnSubmit.setAttribute('id', null);
+    title.value = '';
+    description.value = '';
+    localStorage.setItem('taskList', JSON.stringify(taskList));
+}
+
+const submitEventAddRow = () => {
+    const objModel = {};
+    if (title.value) {
+        objModel.title = title.value;
+        objModel.description = description.value;
+        objModel.id = Math.round(Math.random() * 10000);
+        taskList.push(objModel);
+        title.value = ''
+        description.value = ''
+        ///////////////////////////
+        table(objModel);
+        localStorage.setItem('taskList', JSON.stringify(taskList));
+    } else {
+        alert('please enter title');
+    }
 }
