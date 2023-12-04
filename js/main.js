@@ -35,7 +35,7 @@ btnSubmit.addEventListener('click', (e) => {
 })
 
 function table(objModel) {
-    let thRow = createTag('th', 1);
+    let thRow = createTag('th', objModel.row);
     let tdTitle = createTag('td', objModel.title);
     let tdOperation = document.createElement('td');
     ////////////////
@@ -106,6 +106,7 @@ const submitEventAddRow = () => {
     if (title.value) {
         objModel.title = title.value;
         objModel.description = description.value;
+        objModel.row = taskList.length + 1;
         objModel.id = Math.round(Math.random() * 10000);
         taskList.push(objModel);
         title.value = ''
