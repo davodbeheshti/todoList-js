@@ -84,6 +84,7 @@ function createTag(nameTag, value) {
 const removeRow = (e) => {
     e.target.parentElement.parentElement.remove();
     taskList = taskList.filter(f => f.id !== +e.target.id)
+    localStorage.setItem('taskList', JSON.stringify(taskList))
 }
 
 const editRow = (e) => {
