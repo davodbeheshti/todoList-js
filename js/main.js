@@ -22,7 +22,6 @@ dropdownMenu.addEventListener('click', (e) => {
         btnDropdown.innerText = e.target.innerText;
         dropdownStatus = e.target.innerText;
     }
-    console.log(e.target.tagName);
 })
 
 tableTag.addEventListener('click', (e) => {
@@ -57,7 +56,6 @@ function table(objModel) {
     let iconTrash = document.createElement('i');
     iconTrash.classList = 'fa fa-trash icon text-danger ms-3';
     iconTrash.setAttribute('id', objModel.id);
-
 
     tdOperation.append(iconPencil);
     tdOperation.append(iconTrash);
@@ -105,6 +103,7 @@ const submitEventEditRow = (e) => {
     title.value = '';
     description.value = '';
     btnDropdown.innerText = "Status";
+    dropdownStatus = '';
     localStorage.setItem('taskList', JSON.stringify(taskList)); // localStorage update
     templateAlert('alert-success' , 'edit success fully')
     console.log(tableTag.children);
@@ -130,6 +129,7 @@ const submitEventAddRow = () => {
         title.value = '';
         description.value = '';
         btnDropdown.innerText = "Status";
+        dropdownStatus = '';
         table(objModel);
         localStorage.setItem('taskList', JSON.stringify(taskList)); //////////// adding to localStorage
         templateAlert('alert-success' , 'adding success fully')
