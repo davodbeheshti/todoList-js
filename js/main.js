@@ -1,3 +1,5 @@
+import { templateAlert } from "./templateTag.js";
+
 const title = document.querySelector('#title');
 const description = document.querySelector('#description');
 const btnSubmit = document.querySelector('.btn-submit');
@@ -23,8 +25,6 @@ dropdownMenu.addEventListener('click', (e) => {
     console.log(e.target.tagName);
 })
 
-
-
 tableTag.addEventListener('click', (e) => {
     e.preventDefault();
     if (e.target.classList.contains('fa-trash')) {
@@ -32,7 +32,6 @@ tableTag.addEventListener('click', (e) => {
     } else if (e.target.classList.contains('fa-pencil')) {
         editRow(e)
     }
-
 })
 
 btnSubmit.addEventListener('click', (e) => {
@@ -85,6 +84,7 @@ const eventRemoveRow = (e) => {
     e.target.parentElement.parentElement.remove();
     taskList = taskList.filter(f => f.id !== +e.target.id)
     localStorage.setItem('taskList', JSON.stringify(taskList))
+    templateAlert('alert-success' , 'remove success fully')
 }
 
 const editRow = (e) => {
@@ -106,6 +106,7 @@ const submitEventEditRow = (e) => {
     description.value = '';
     btnDropdown.innerText = "Status";
     localStorage.setItem('taskList', JSON.stringify(taskList)); // localStorage update
+    templateAlert('alert-success' , 'edit success fully')
     console.log(tableTag.children);
     for (let item of tableTag.children) {
         if (item.id === e.target.id) {
@@ -131,7 +132,8 @@ const submitEventAddRow = () => {
         btnDropdown.innerText = "Status";
         table(objModel);
         localStorage.setItem('taskList', JSON.stringify(taskList)); //////////// adding to localStorage
+        templateAlert('alert-success' , 'adding success fully')
     } else {
-        alert('please enter title');
+        templateAlert('alert-warning' , 'please enter title')
     }
 }

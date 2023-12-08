@@ -1,0 +1,8 @@
+.alert {
+  width: 20%;
+  position: absolute;
+  top: 3%;
+  height: 60px;
+  left: 2.6%;
+  transition: all 0.3s ease;
+}
