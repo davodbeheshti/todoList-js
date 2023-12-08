@@ -51,11 +51,11 @@ function table(objModel) {
     let tdOperation = document.createElement('td');
     ////////////////
     let iconPencil = document.createElement('i');
-    iconPencil.classList = 'fa fa-pencil text-warning'
+    iconPencil.classList = 'fa fa-pencil icon text-warning'
     iconPencil.setAttribute('id', objModel.id);
 
     let iconTrash = document.createElement('i');
-    iconTrash.classList = 'fa fa-trash text-danger ms-3';
+    iconTrash.classList = 'fa fa-trash icon text-danger ms-3';
     iconTrash.setAttribute('id', objModel.id);
 
 
