@@ -13,23 +13,33 @@
 
     <div class="mx-5 my-3 d-flex flex-column">
 
-        <div class="input-title w-100 mb-4 d-flex align-items-end">
+        <div class="w-100 mb-4 d-flex align-items-end">
             <div class="w-50">
                 <label class="mb-2" for="title">Title</label>
-                <input type="text" id="title" class="form-control">
+                <div class="d-flex flex-column input-title">
+                    <input type="text" id="title" class="form-control">
+                    <b>
+                        <small class="text-danger">This field is required</small>
+                    </b>
+                </div>
             </div>
-            <div class="input-dropdown w-50 ps-5">
-                <button class="btn btn-secondary dropdown-toggle" id="dropdown-btn" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">Status</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#done">Done</a></li>
-                    <li><a class="dropdown-item" href="#inProgress">InProgress</a></li>
-                    <li><a class="dropdown-item" href="#todo">Todo</a></li>
-                </ul>
+            <div class="d-flex flex-column input-dropdown ps-5 w-50">
+                <div>
+                    <button class="btn btn-secondary dropdown-toggle" id="dropdown-btn" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Status</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#done">Done</a></li>
+                        <li><a class="dropdown-item" href="#inProgress">InProgress</a></li>
+                        <li><a class="dropdown-item" href="#todo">Todo</a></li>
+                    </ul>
+                </div>
+                <b>
+                    <small class="text-danger">This field is required</small>
+                </b>
             </div>
         </div>
 
-        <div class="input-title d-flex align-items-end w-100 mt-3">
+        <div class="d-flex align-items-end w-100 mt-3">
             <div class="w-50">
                 <label class="mb-2" for="description">Description</label>
                 <textarea name="" id="description" class="form-control" id="" cols="30" rows="10"></textarea>

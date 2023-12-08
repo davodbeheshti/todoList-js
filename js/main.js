@@ -1,4 +1,4 @@
-import { templateAlert } from "./templateTag.js";
+import { templateAlert, fieldRequired } from "./templateTag.js";
 
 const title = document.querySelector('#title');
 const description = document.querySelector('#description');
@@ -6,8 +6,11 @@ const btnSubmit = document.querySelector('.btn-submit');
 const btnDropdown = document.querySelector('#dropdown-btn');
 const tableTag = document.querySelector('#table tbody');
 const dropdownMenu = document.querySelector('.dropdown-menu');
+const inputTitle = document.querySelector('.input-title');
+const inputDropdown = document.querySelector('.input-dropdown');
 let taskList = [];
 let dropdownStatus;
+let validInputTitle = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     taskList = JSON.parse(localStorage.getItem('taskList')) || [];
@@ -21,6 +24,19 @@ dropdownMenu.addEventListener('click', (e) => {
     if (e.target.tagName === "A") {
         btnDropdown.innerText = e.target.innerText;
         dropdownStatus = e.target.innerText;
+        inputDropdown.children[1].remove()
+    }
+})
+
+title.addEventListener('input', (e) => {
+    if (!e.target.value) {
+        inputTitle.append(fieldRequired())
+        validInputTitle = false;
+    } else {
+        if(!validInputTitle) {
+            inputTitle.children[1].remove();
+            validInputTitle = true;
+        }
     }
 })
 
@@ -82,7 +98,7 @@ const eventRemoveRow = (e) => {
     e.target.parentElement.parentElement.remove();
     taskList = taskList.filter(f => f.id !== +e.target.id)
     localStorage.setItem('taskList', JSON.stringify(taskList))
-    templateAlert('alert-success' , 'remove success fully')
+    templateAlert('alert-success', 'remove success fully')
 }
 
 const editRow = (e) => {
@@ -105,7 +121,7 @@ const submitEventEditRow = (e) => {
     btnDropdown.innerText = "Status";
     dropdownStatus = '';
     localStorage.setItem('taskList', JSON.stringify(taskList)); // localStorage update
-    templateAlert('alert-success' , 'edit success fully')
+    templateAlert('alert-success', 'edit success fully')
     console.log(tableTag.children);
     for (let item of tableTag.children) {
         if (item.id === e.target.id) {
@@ -119,7 +135,7 @@ const submitEventEditRow = (e) => {
 
 const submitEventAddRow = () => {
     const objModel = {};
-    if (title.value) {
+    if (title.value && dropdownStatus) {
         objModel.title = title.value;
         objModel.status = dropdownStatus;
         objModel.description = description.value;
@@ -132,8 +148,9 @@ const submitEventAddRow = () => {
         dropdownStatus = '';
         table(objModel);
         localStorage.setItem('taskList', JSON.stringify(taskList)); //////////// adding to localStorage
-        templateAlert('alert-success' , 'adding success fully')
+        inputTitle.append(fieldRequired())
+        inputDropdown.append(fieldRequired())
+        templateAlert('alert-success', 'adding success fully')
     } else {
-        templateAlert('alert-warning' , 'please enter title')
     }
 }
