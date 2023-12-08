@@ -89,7 +89,7 @@ const editRow = (e) => {
     const row = taskList.find(f => f.id === +e.target.id);
     title.value = row.title;
     description.value = row.description;
-    btnDropdown.innerText = row.status;
+    btnDropdown.innerText = row.status || 'Status';
     btnSubmit.innerText = "Edit"
     btnSubmit.setAttribute('id', row.id);
 }
