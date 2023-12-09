@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 dropdownMenu.addEventListener('click', (e) => {
-    if (e.target.tagName === "A") {
+    if (e.target.tagName.toLowerCase() === "a") {
         btnDropdown.innerText = e.target.innerText;
         dropdownStatus = e.target.innerText;
         inputDropdown.children[1].remove()
@@ -33,7 +33,7 @@ title.addEventListener('input', (e) => {
         inputTitle.append(fieldRequired())
         validInputTitle = false;
     } else {
-        if(!validInputTitle) {
+        if (!validInputTitle) {
             inputTitle.children[1].remove();
             validInputTitle = true;
         }
@@ -51,11 +51,12 @@ tableTag.addEventListener('click', (e) => {
 
 btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
-
-    if (e.target.id) {
-        submitEventEditRow(e);
-    } else {
-        submitEventAddRow();
+    if (title.value && dropdownStatus) {
+        if (e.target.id) {
+            submitEventEditRow(e);
+        } else {
+            submitEventAddRow();
+        }
     }
 
 })
@@ -106,7 +107,10 @@ const editRow = (e) => {
     title.value = row.title;
     description.value = row.description;
     btnDropdown.innerText = row.status || 'Status';
+    dropdownStatus = row.status;
     btnSubmit.innerText = "Edit"
+    inputDropdown.children[1].remove()
+    inputTitle.children[1].remove();
     btnSubmit.setAttribute('id', row.id);
 }
 
@@ -121,13 +125,15 @@ const submitEventEditRow = (e) => {
     btnDropdown.innerText = "Status";
     dropdownStatus = '';
     localStorage.setItem('taskList', JSON.stringify(taskList)); // localStorage update
+    inputTitle.append(fieldRequired())
+    inputDropdown.append(fieldRequired())
     templateAlert('alert-success', 'edit success fully')
     console.log(tableTag.children);
     for (let item of tableTag.children) {
         if (item.id === e.target.id) {
             item.children[1].innerText = row.title;
             item.children[2].innerText = row.description;
-            item.children[3].innerText = dropdownStatus;
+            item.children[3].innerText = row.status;
         }
     }
     btnSubmit.setAttribute('id', null);
@@ -135,22 +141,19 @@ const submitEventEditRow = (e) => {
 
 const submitEventAddRow = () => {
     const objModel = {};
-    if (title.value && dropdownStatus) {
-        objModel.title = title.value;
-        objModel.status = dropdownStatus;
-        objModel.description = description.value;
-        objModel.row = taskList.length + 1;
-        objModel.id = Math.round(Math.random() * 10000);
-        taskList.push(objModel);
-        title.value = '';
-        description.value = '';
-        btnDropdown.innerText = "Status";
-        dropdownStatus = '';
-        table(objModel);
-        localStorage.setItem('taskList', JSON.stringify(taskList)); //////////// adding to localStorage
-        inputTitle.append(fieldRequired())
-        inputDropdown.append(fieldRequired())
-        templateAlert('alert-success', 'adding success fully')
-    } else {
-    }
+    objModel.title = title.value;
+    objModel.status = dropdownStatus;
+    objModel.description = description.value;
+    objModel.row = taskList.length + 1;
+    objModel.id = Math.round(Math.random() * 10000);
+    taskList.push(objModel);
+    title.value = '';
+    description.value = '';
+    btnDropdown.innerText = "Status";
+    dropdownStatus = '';
+    table(objModel);
+    localStorage.setItem('taskList', JSON.stringify(taskList)); //////////// adding to localStorage
+    inputTitle.append(fieldRequired())
+    inputDropdown.append(fieldRequired())
+    templateAlert('alert-success', 'adding success fully')
 }
